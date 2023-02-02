@@ -19,9 +19,9 @@ export class GeneralLayout {
   }
 
   renderControls() {
-    const controlsContainer = document.createElement("div");
-    const storageContainer = document.createElement("div");
-    const transferContainer = document.createElement("div");
+    const controlsContainer = this.createDiv();
+    const storageContainer = this.createDiv();
+    const transferContainer = this.createDiv();
 
     controlsContainer.classList.add("storage-calc__controls-container");
     storageContainer.classList.add("storage-calc__controls-input-container");
@@ -35,12 +35,12 @@ export class GeneralLayout {
   }
 
   renderProvidersInfo() {
-    this.providerFlexContainer = document.createElement("div");
-    const providersContainer = document.createElement("div");
-    const backblazeContainer = document.createElement("div");
-    const bunnyContainer = document.createElement("div");
-    const scalewayContainer = document.createElement("div");
-    const vultrContainer = document.createElement("div");
+    this.providerFlexContainer = this.createDiv();
+    const providersContainer = this.createDiv();
+    const backblazeContainer = this.createDiv();
+    const bunnyContainer = this.createDiv();
+    const scalewayContainer = this.createDiv();
+    const vultrContainer = this.createDiv();
 
     this.providerFlexContainer.classList.add("storage-calc__providers-flex");
     providersContainer.classList.add("storage-calc__providers");
@@ -66,8 +66,8 @@ export class GeneralLayout {
   }
 
   renderCostBar() {
-    const costBarContainer = document.createElement("div");
-    const startPointArea = document.createElement("div");
+    const costBarContainer = this.createDiv();
+    const startPointArea = this.createDiv();
     startPointArea.classList.add("storage-calc__cost-startpoint");
 
     costBarContainer.classList.add("storage-calc__cost");
@@ -149,6 +149,10 @@ export class GeneralLayout {
       cheapest.bar.style.background = "#6743ee";
     }
   };
+
+  createDiv() {
+    return document.createElement("div");
+  }
 
   calculateProvidersCost() {
     const backblazeBar = document.getElementById("backblaze-bar");
