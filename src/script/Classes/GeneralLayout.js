@@ -19,60 +19,55 @@ export class GeneralLayout {
   }
 
   renderControls() {
-    const controlsContainer = this.createDiv();
-    const storageContainer = this.createDiv();
-    const transferContainer = this.createDiv();
+    const { controls, storage, transfer } = this.createDiv([
+      "controls",
+      "storage",
+      "transfer",
+    ]);
 
-    controlsContainer.classList.add("storage-calc__controls-container");
-    storageContainer.classList.add("storage-calc__controls-input-container");
-    transferContainer.classList.add("storage-calc__controls-input-container");
+    controls.classList.add("storage-calc__controls-container");
+    storage.classList.add("storage-calc__controls-input-container");
+    transfer.classList.add("storage-calc__controls-input-container");
 
-    this.storageControl.createControlInput(storageContainer);
-    this.transferControl.createControlInput(transferContainer);
+    this.storageControl.createControlInput(storage);
+    this.transferControl.createControlInput(transfer);
 
-    controlsContainer.append(storageContainer, transferContainer);
-    this.appContainer.append(controlsContainer);
+    controls.append(storage, transfer);
+    this.appContainer.append(controls);
   }
 
   renderProvidersInfo() {
-    this.providerFlexContainer = this.createDiv();
-    const providersContainer = this.createDiv();
-    const backblazeContainer = this.createDiv();
-    const bunnyContainer = this.createDiv();
-    const scalewayContainer = this.createDiv();
-    const vultrContainer = this.createDiv();
+    const { providers, backblaze, bunny, scaleway, vultr } = this.createDiv([
+      "providers",
+      "backblaze",
+      "bunny",
+      "scaleway",
+      "vultr",
+    ]);
+    this.providerFlexContainer = document.createElement("div");
 
     this.providerFlexContainer.classList.add("storage-calc__providers-flex");
-    providersContainer.classList.add("storage-calc__providers");
+    providers.classList.add("storage-calc__providers");
 
-    this.providersInfo.createProvider(
-      this.providersInfo.backblaze,
-      backblazeContainer
-    );
-    this.providersInfo.createProvider(this.providersInfo.bunny, bunnyContainer);
-    this.providersInfo.createProvider(
-      this.providersInfo.scaleway,
-      scalewayContainer
-    );
-    this.providersInfo.createProvider(this.providersInfo.vultr, vultrContainer);
-    providersContainer.append(
-      backblazeContainer,
-      bunnyContainer,
-      scalewayContainer,
-      vultrContainer
-    );
-    this.providerFlexContainer.append(providersContainer);
+    this.providersInfo.createProvider(this.providersInfo.backblaze, backblaze);
+    this.providersInfo.createProvider(this.providersInfo.bunny, bunny);
+    this.providersInfo.createProvider(this.providersInfo.scaleway, scaleway);
+    this.providersInfo.createProvider(this.providersInfo.vultr, vultr);
+    providers.append(backblaze, bunny, scaleway, vultr);
+    this.providerFlexContainer.append(providers);
     this.appContainer.append(this.providerFlexContainer);
   }
 
   renderCostBar() {
-    const costBarContainer = this.createDiv();
-    const startPointArea = this.createDiv();
+    const { costBar, startPointArea } = this.createDiv([
+      "costBar",
+      "startPointArea",
+    ]);
     startPointArea.classList.add("storage-calc__cost-startpoint");
 
-    costBarContainer.classList.add("storage-calc__cost");
-    this.costBar.createCostBar(costBarContainer);
-    this.providerFlexContainer.append(startPointArea, costBarContainer);
+    costBar.classList.add("storage-calc__cost");
+    this.costBar.createCostBar(costBar);
+    this.providerFlexContainer.append(startPointArea, costBar);
   }
 
   //for Backblaze and Vultr
@@ -150,8 +145,12 @@ export class GeneralLayout {
     }
   };
 
-  createDiv() {
-    return document.createElement("div");
+  createDiv(names) {
+    let divs = {};
+    names.forEach((item) => {
+      divs[item] = document.createElement("div");
+    });
+    return divs;
   }
 
   calculateProvidersCost() {
